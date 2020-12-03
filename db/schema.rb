@@ -15,15 +15,19 @@ ActiveRecord::Schema.define(version: 2020_12_03_001615) do
   create_table "nationalparks", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.text "description"
+    t.string "location"
+    t.string "designation"
+    t.text "weather"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "permits", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "nationalpark_id"
     t.integer "tourist_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tourists", force: :cascade do |t|
