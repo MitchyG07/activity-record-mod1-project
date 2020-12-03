@@ -1,4 +1,3 @@
-require_relative '../lib/get_requester.rb'
 require 'bundler'
 Bundler.require
 
