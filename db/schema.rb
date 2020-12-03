@@ -14,16 +14,9 @@ ActiveRecord::Schema.define(version: 2020_12_03_001615) do
 
   create_table "nationalparks", force: :cascade do |t|
     t.string "name"
-    t.string "state"
-    t.text "activities"
-    t.integer "contact"
-    t.float "fee"
-    t.string "address"
-    t.string "weather"
-    t.text "campground"
-    t.float "latitude"
-    t.float "longitude"
-    t.text "description"
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "permits", force: :cascade do |t|
