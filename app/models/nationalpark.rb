@@ -1,7 +1,7 @@
 class Nationalpark < ActiveRecord::Base
     has_many :activities
     has_many :tourists, through: :activities
-    
+    has_many :campgrounds
     
 
     def self.find_by_state(state)

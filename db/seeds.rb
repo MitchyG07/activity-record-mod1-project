@@ -1,7 +1,6 @@
 require 'rest-client'
 
 Nationalpark.destroy_all
-Activity.destroy_all
 
 np = RestClient.get 'https://developer.nps.gov/api/v1/parks?stateCode=&limit=497&api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ'
 
