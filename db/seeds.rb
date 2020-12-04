@@ -16,5 +16,5 @@ np_array.each do |np|
         designation: np["designation"],
         weather: np["weatherInfo"]
     )
-    end 
+end 
 

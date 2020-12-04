@@ -2,7 +2,9 @@ class Nationalpark < ActiveRecord::Base
     has_many :activities
     has_many :tourists, through: :activities
     
-    
+    def self.find_by_name(name)
+        Nationalpark.find_by(name: name)
+    end
 
     def self.find_by_state(state)
         state = GetRequester.new("https://developer.nps.gov/api/v1/parks?stateCode=#{state}&api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ")
@@ -23,23 +25,13 @@ class Nationalpark < ActiveRecord::Base
             hash[i] = self.find_by(name: i).designation
         end 
     end
-        
 
-    # def self.find_by_name(name)
-    #     park = GetRequester.new(PARKSURL)
-    #     data = park.parse_json
-    #     data["data"].select{|np| np["fullName"] == name}
-    # end
-
-    # def select_park
-    #     park = GetRequester.new(PARKSURL)
-    #     data = park.parse_json
-    #     data["data"].select{|np| np["fullName"] == self.name}
-    # end
-
-    # def park_state
-    #     park = self.select_park
-    #     park.map{|np| np["states"]}
-    # end
+    def campgrounds
+        camp = GetRequester.new("https://developer.nps.gov/api/v1/campgrounds?parkCode=#{self.code}&limit=10000&api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ")
+        camp_data = camp.parse_json["data"]
+    end
 
 end 
+
+
+        
