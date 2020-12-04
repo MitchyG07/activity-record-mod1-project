@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_171904) do
+ActiveRecord::Schema.define(version: 2020_12_03_001615) do
 
   create_table "activities", force: :cascade do |t|
     t.string "activity"
@@ -18,13 +18,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_171904) do
     t.integer "tourist_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "campgrounds", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "park_code"
-    t.integer "nationalpark_id"
   end
 
   create_table "nationalparks", force: :cascade do |t|
