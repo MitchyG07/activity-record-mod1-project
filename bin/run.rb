@@ -1,5 +1,7 @@
+require 'pry'
 require_relative '../config/environment'
+require_relative 'menu.rb'
 
 
-
-puts "HELLO WORLD"
+menu = Menu.new
+menu.start

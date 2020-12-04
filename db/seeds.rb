@@ -13,7 +13,8 @@ np_array.each do |np|
         description: np["description"],
         location: np["latLong"],
         designation: np["designation"],
-        weather: np["weatherInfo"]
+        weather: np["weatherInfo"],
+        states: np["states"]
     )
     end 
 
