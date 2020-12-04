@@ -1,4 +1,4 @@
 class Tourist < ActiveRecord::Base
-    has_many :permits
-    has_many :nationalparks, through: :permits
+    has_many :activities
+    has_many :nationalparks, through: :activities
 end 
