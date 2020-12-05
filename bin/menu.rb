@@ -8,6 +8,24 @@ class Menu
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
         @last_name = STDIN.gets.chomp
+        puts "Press 1 to explore activities to book with ActivityRecord!"
+        puts "Press 2 to view and manage your past bookings"
+        puts "Press 3 to exit"
+        start_input = STDIN.gets.chomp
+        self.viewer(start_input) 
+    end 
+
+    def viewer(start_input)
+        if start_input == "1"
+            self.booking_process
+        elsif start_input == "2"
+            self.activity_list
+        else          
+            self.exit
+        end 
+    end 
+
+    def booking_process 
         puts "Here is a list of all available activities!"
         puts Activity.list_all_activities
 
@@ -16,11 +34,12 @@ class Menu
 
         puts "Press 1 to search for park to do your activity at"
         puts "Press 2 to search by state"
-        puts "Press 3 to view or delete your past bookings"
-        puts "Press 4 to exit"
+        puts "Press 3 to exit"
         user_input = STDIN.gets.chomp
         self.input(user_input)
-    end 
+    end
+
+
 
     def input(user_input)
         system "clear"
@@ -30,8 +49,6 @@ class Menu
         when "2"
             self.search_by_state
         when "3"
-            self.activity_list 
-        when "4"
             self.exit
         end 
     end 
@@ -41,7 +58,7 @@ class Menu
         if user              
             user_acts = Activity.find_all_activities(user)
             user_acts.each do |user|
-                puts "#{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name}"
+                puts "#{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
                 user_input = STDIN.gets.chomp
@@ -86,7 +103,7 @@ class Menu
         state_array = Activity.find_parks_by_state_and_activity(@activity,user_state)
         if state_array.empty?
             puts "We are sorry, #{@activity} is not in #{user_state}!"
-            self.start
+            self.search_by_state
         else 
             puts state_array
             puts "Which of these parks would you to visit for #{@activity}"
@@ -133,9 +150,11 @@ class Menu
     end 
 
     def book_now
+        puts "Please enter the date you would like to book your activity for: (mm/dd/yyyy)"
+        date = STDIN.gets.chomp
         user = Tourist.find_or_create_a_tourist(@first_name, @last_name).id
         park_id = Nationalpark.find_by(name: @user_park).id 
-        Activity.create(activity: @activity,nationalpark_id: park_id,tourist_id: user)
+        Activity.create(activity: @activity,nationalpark_id: park_id,tourist_id: user,date: date)
         puts "Thank you for booking your activity with ActivityRecord!"
     end 
         
