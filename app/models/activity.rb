@@ -12,6 +12,10 @@ class Activity < ActiveRecord::Base
         end 
     end 
 
+    def self.find_all_activities(id)
+        Activity.all.select{|act| act.tourist_id == id}
+    end 
+
 
     def self.list_all_activities
         res = GetRequester.new("https://developer.nps.gov/api/v1/activities?api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ")
@@ -37,7 +41,7 @@ class Activity < ActiveRecord::Base
         end
         array
     end
-    
+
 end 
 
 # ["Arts and Culture",

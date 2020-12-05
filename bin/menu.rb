@@ -16,7 +16,7 @@ class Menu
 
         puts "Press 1 to search for park to do your activity at"
         puts "Press 2 to search by state"
-        puts "Press 3 to view your past activities"
+        puts "Press 3 to view or delete your past bookings"
         puts "Press 4 to exit"
         user_input = STDIN.gets.chomp
         self.input(user_input)
@@ -37,17 +37,32 @@ class Menu
     end 
 
     def activity_list
-        array = []
         user = Tourist.find_by(first_name: @first_name, last_name: @last_name).id
         if user              
-            map = Activity.all.select{|act| act.tourist_id == user}
-            puts map
-            binding.pry
+            user_acts = Activity.find_all_activities(user)
+            user_acts.each do |user|
+                puts "#{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name}"
+            end
+                puts "Press 1 if you would like to delete any of your past bookings"
+                user_input = STDIN.gets.chomp
+                self.delete(user_input)
         else                
             puts "Oops! Looks like you haven't booked any activities with us!"
             self.start
         end 
     end 
+
+    def delete(user_input)
+        if user_input == "1" 
+            puts "Enter the number associated with the booking you would like to delete"
+            delete_input = STDIN.gets.chomp 
+            Activity.find(delete_input).destroy
+            puts "Your booking has been deleted"
+            self.exit 
+        else
+            self.start
+        end
+    end
 
     def search_by_park
         puts 'What park would you like to go to?'
