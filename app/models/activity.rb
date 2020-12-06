@@ -26,8 +26,12 @@ class Activity < ActiveRecord::Base
     end 
 
     def self.find_if_park_has_your_activity(activity, park) 
-        activity_array = self.find_park_by_activity(activity)
-        activity_array.include?(park)
+        if self.list_all_activities.include? activity
+            activity_array = self.find_park_by_activity(activity)
+            activity_array.include?(park)
+        else
+            false
+        end
     end
 
     def self.find_parks_by_state_and_activity(activity, state)
