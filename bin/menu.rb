@@ -1,13 +1,17 @@
 require 'pry'
 
 class Menu
-    def start
+    def welcome
         puts 'Welcome to ActivityRecord!'
-        puts 'We would love to help you find which National Parks you can do you favorite outdoor activities!'
         puts "Please enter your first name"
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
         @last_name = STDIN.gets.chomp
+        self.start
+    end
+
+    def start
+        puts 'We would love to help you find which National Parks you can do you favorite outdoor activities!'
         puts "Press 1 to explore activities to book with ActivityRecord!"
         puts "Press 2 to view and manage your past bookings"
         puts "Press 3 to exit"
@@ -65,6 +69,7 @@ class Menu
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
                 puts "Press 2 if you would like to update any of your past bookings"
+                puts "Press any key to return to the start menu"
                 user_input = STDIN.gets.chomp
                 self.manage(user_input)
         else                
@@ -173,10 +178,11 @@ class Menu
         park_id = Nationalpark.find_by(name: @user_park).id 
         Activity.create(activity: @activity,nationalpark_id: park_id,tourist_id: user,date: date)
         puts "Thank you for booking your activity with ActivityRecord!"
+        self.start
     end 
         
 
     def exit
-        puts 'goodbye!'
+        puts 'Thanks for visiting!'
     end 
 end 
