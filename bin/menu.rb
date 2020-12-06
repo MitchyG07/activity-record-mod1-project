@@ -84,7 +84,7 @@ class Menu
             delete_input = STDIN.gets.chomp 
             Activity.find(delete_input).destroy
             puts "Your booking has been deleted"
-            self.exit 
+            self.start
         elsif user_input == "2"
             puts "Enter the number associated with the booking you would like to update"
             id_input = STDIN.gets.chomp
@@ -92,7 +92,7 @@ class Menu
             new_date = STDIN.gets.chomp
             Activity.find(id_input).update(date: new_date)
             puts "Your booking has been updated"
-            self.exit
+            self.start
         else
             self.start
         end
@@ -132,6 +132,9 @@ class Menu
     def view_all_by_activity
         puts "Here is a list of every park and its state with #{@activity}."
         puts Activity.view_all_parks_with_activity(@activity)
+        puts "Which of these parks would you to visit for #{@activity}"
+        @user_park = STDIN.gets.chomp
+        self.get_park_info
     end
 
     def get_park_info
@@ -169,6 +172,7 @@ class Menu
         when "7" 
             self.exit 
         end 
+        system "clear"
     end 
 
     def book_now
