@@ -35,6 +35,10 @@ class Menu
 
         puts 'Enter the name of the activity you would like to do today!'
         @activity = STDIN.gets.chomp
+        until Activity.list_all_activities.include? @activity
+            puts "Sorry #{@activity} is not a listed activity. Please re-enter."
+            @activity = STDIN.gets.chomp
+        end
 
         puts "Where would you like to go #{@activity}?"
         puts "Press 1 to search for a specific park"
@@ -120,11 +124,15 @@ class Menu
         state_array = Activity.find_parks_by_state_and_activity(@activity,user_state)
         if state_array.empty?
             puts "We are sorry, #{@activity} is not in #{user_state}!"
-            self.search_by_state
+            self.start
         else 
             puts state_array
             puts "Which of these parks would you to visit for #{@activity}"
             @user_park = STDIN.gets.chomp
+            # until Nationalpark.all.include? @user_park
+            #     puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
+            #     @user_park = STDIN.gets.chomp
+            # end            
             self.get_park_info
         end 
     end 
@@ -134,6 +142,10 @@ class Menu
         puts Activity.view_all_parks_with_activity(@activity)
         puts "Which of these parks would you to visit for #{@activity}"
         @user_park = STDIN.gets.chomp
+        # until Nationalpark.all.include? @user_park
+        #     puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
+        #     @user_park = STDIN.gets.chomp
+        # end 
         self.get_park_info
     end
 
