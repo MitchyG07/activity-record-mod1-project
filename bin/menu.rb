@@ -57,28 +57,37 @@ class Menu
     end 
 
     def activity_list
-        user = Tourist.find_by(first_name: @first_name, last_name: @last_name).id
+        user = Tourist.find_by(first_name: @first_name, last_name: @last_name)
         if user              
-            user_acts = Activity.find_all_activities(user)
+            user_acts = Activity.find_all_activities(user.id)
             user_acts.each do |user|
                 puts "#{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
+                puts "Press 2 if you would like to update any of your past bookings"
                 user_input = STDIN.gets.chomp
-                self.delete(user_input)
+                self.manage(user_input)
         else                
             puts "Oops! Looks like you haven't booked any activities with us!"
             self.start
         end 
     end 
 
-    def delete(user_input)
+    def manage(user_input)
         if user_input == "1" 
             puts "Enter the number associated with the booking you would like to delete"
             delete_input = STDIN.gets.chomp 
             Activity.find(delete_input).destroy
             puts "Your booking has been deleted"
             self.exit 
+        elsif user_input == "2"
+            puts "Enter the number associated with the booking you would like to update"
+            id_input = STDIN.gets.chomp
+            puts "Enter the new date you would like to do your activity (mm/dd/yyyy)"
+            new_date = STDIN.gets.chomp
+            Activity.find(id_input).update(date: new_date)
+            puts "Your booking has been updated"
+            self.exit
         else
             self.start
         end
