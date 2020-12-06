@@ -30,6 +30,15 @@ class Nationalpark < ActiveRecord::Base
     def campgrounds
         camp = GetRequester.new("https://developer.nps.gov/api/v1/campgrounds?parkCode=#{self.code}&limit=10000&api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ")
         camp_data = camp.parse_json["data"]
+        list = []
+        camp_data.each do |camp|
+            list << camp["description"]
+        end
+        if list.empty?
+            "There are no campgrounds at #{self.name}"
+        else
+            list
+        end
     end
         
 
