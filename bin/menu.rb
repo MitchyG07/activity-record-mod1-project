@@ -3,7 +3,7 @@ require 'pry'
 class Menu
     def start
         puts 'Welcome to ActivityRecord!'
-        puts 'We would love to help you find where you can do you favorite outdoor activities!'
+        puts 'We would love to help you find which National Parks you can do you favorite outdoor activities!'
         puts "Please enter your first name"
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
@@ -32,13 +32,14 @@ class Menu
         puts 'Enter the name of the activity you would like to do today!'
         @activity = STDIN.gets.chomp
 
-        puts "Press 1 to search for park to do your activity at"
-        puts "Press 2 to search by state"
-        puts "Press 3 to exit"
+        puts "Where would you like to go #{@activity}?"
+        puts "Press 1 to search for a specific park"
+        puts "Press 2 to search by state."
+        puts "Press 3 to view a list of every park and its state with #{@activity}."
+        puts "Press 4 to exit"
         user_input = STDIN.gets.chomp
         self.input(user_input)
     end
-
 
 
     def input(user_input)
@@ -49,6 +50,8 @@ class Menu
         when "2"
             self.search_by_state
         when "3"
+            self.view_all_by_activity
+        when "4"
             self.exit
         end 
     end 
@@ -111,6 +114,11 @@ class Menu
             self.get_park_info
         end 
     end 
+
+    def view_all_by_activity
+        puts "Here is a list of every park and its state with #{@activity}."
+        puts Activity.view_all_parks_with_activity(@activity)
+    end
 
     def get_park_info
         puts "1. Description"

@@ -42,6 +42,16 @@ class Activity < ActiveRecord::Base
         array
     end
 
+    def self.view_all_parks_with_activity(activity)
+        res = GetRequester.new("https://developer.nps.gov/api/v1/activities/parks?q=#{activity}&api_key=amSoAnSXu48zw8sNc45tsop4Wriei2yPYPM8hrBJ")
+        activity_data = res.parse_json["data"][0]["parks"]
+        list = []
+        activity_data.each do |np|
+            list << {np["fullName"] => np["states"]}
+        end
+        list
+    end
+
 end 
 
 # ["Arts and Culture",
