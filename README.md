@@ -1,7 +1,7 @@
 # Module One Final Project#
 
 # Demo Video
-https://www.youtube.com/watch?v=IZnsKqu9TDQ
+https://youtu.be/3XIs-ghVQAY
 
 # Name
 ActivityRecord
