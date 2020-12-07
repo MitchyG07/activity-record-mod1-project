@@ -3,6 +3,7 @@ require 'pry'
 class Menu
     def welcome
         puts 'Welcome to ActivityRecord!'
+        puts "Let's find which National Parks you can do your favorite outdoor activities!"
         puts "Please enter your first name"
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
@@ -11,7 +12,7 @@ class Menu
     end
 
     def start
-        puts 'We would love to help you find which National Parks you can do you favorite outdoor activities!'
+        puts "Main Menu"
         puts "Press 1 to explore activities to book with ActivityRecord!"
         puts "Press 2 to view and manage your past bookings"
         puts "Press 3 to exit"
@@ -42,9 +43,10 @@ class Menu
 
         puts "Where would you like to go #{@activity}?"
         puts "Press 1 to search for a specific park"
-        puts "Press 2 to search by state."
-        puts "Press 3 to view a list of every park and its state with #{@activity}."
-        puts "Press 4 to exit"
+        puts "Press 2 to search by state"
+        puts "Press 3 to view a list of every park and its state with #{@activity}"
+        puts "Press 4 to return to the main menu"
+        puts "Press 5 to exit"
         user_input = STDIN.gets.chomp
         self.input(user_input)
     end
@@ -60,11 +62,14 @@ class Menu
         when "3"
             self.view_all_by_activity
         when "4"
+            self.start
+        when "5"
             self.exit
         end 
     end 
 
     def activity_list
+        system "clear"
         user = Tourist.find_by(first_name: @first_name, last_name: @last_name)
         if user              
             user_acts = Activity.find_all_activities(user.id)
@@ -73,7 +78,7 @@ class Menu
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
                 puts "Press 2 if you would like to update any of your past bookings"
-                puts "Press any key to return to the start menu"
+                puts "Press any key to return to the main menu"
                 user_input = STDIN.gets.chomp
                 self.manage(user_input)
         else                
@@ -87,7 +92,7 @@ class Menu
             puts "Enter the number associated with the booking you would like to delete"
             delete_input = STDIN.gets.chomp 
             Activity.find(delete_input).destroy
-            puts "Your booking has been deleted"
+            puts "Your booking has been deleted. Returning to main menu."
             self.start
         elsif user_input == "2"
             puts "Enter the number associated with the booking you would like to update"
@@ -95,7 +100,7 @@ class Menu
             puts "Enter the new date you would like to do your activity (mm/dd/yyyy)"
             new_date = STDIN.gets.chomp
             Activity.find(id_input).update(date: new_date)
-            puts "Your booking has been updated"
+            puts "Your booking has been updated. Returning to main menu."
             self.start
         else
             self.start
@@ -109,12 +114,9 @@ class Menu
             puts "Yes, #{@activity} is available for booking at #{@user_park}!"
             puts "Prior to booking, what else would you like to learn about #{@user_park}?"
             self.get_park_info
-            # self.get_park_info(user_park)
-            #next pathway
         else            
             puts "We are sorry! #{@activity} is not available at #{@user_park}."
             self.start
-            # self.input(user_input)
         end 
     end 
 
