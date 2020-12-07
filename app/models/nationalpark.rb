@@ -32,7 +32,7 @@ class Nationalpark < ActiveRecord::Base
         camp_data = camp.parse_json["data"]
         list = []
         camp_data.each do |camp|
-            list << camp["description"]
+            list << {camp["name"] => camp["description"]}
         end
         if list.empty?
             "There are no campgrounds at #{self.name}"

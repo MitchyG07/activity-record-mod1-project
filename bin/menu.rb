@@ -1,4 +1,3 @@
-
 class Menu
     def welcome
         puts 'Welcome to ActivityRecord!'
