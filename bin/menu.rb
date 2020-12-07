@@ -129,10 +129,10 @@ class Menu
             puts state_array
             puts "Which of these parks would you to visit for #{@activity}"
             @user_park = STDIN.gets.chomp
-            # until Nationalpark.all.include? @user_park
-            #     puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
-            #     @user_park = STDIN.gets.chomp
-            # end            
+            until Nationalpark.exists?(name: @user_park)
+                puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
+                @user_park = STDIN.gets.chomp
+            end           
             self.get_park_info
         end 
     end 
@@ -142,10 +142,10 @@ class Menu
         puts Activity.view_all_parks_with_activity(@activity)
         puts "Which of these parks would you to visit for #{@activity}"
         @user_park = STDIN.gets.chomp
-        # until Nationalpark.all.include? @user_park
-        #     puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
-        #     @user_park = STDIN.gets.chomp
-        # end 
+        until Nationalpark.exists?(name: @user_park)
+            puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
+            @user_park = STDIN.gets.chomp
+        end 
         self.get_park_info
     end
 
@@ -156,7 +156,7 @@ class Menu
         puts "4. Weather Information"
         puts "5. Campground Information" 
         puts "6. Book your activity now!" 
-        puts "7. Exit"
+        puts "7. Main Menu"
         park_input = STDIN.gets.chomp 
         self.p_input(park_input)
     end 
@@ -182,7 +182,7 @@ class Menu
         when "6"
             self.book_now
         when "7" 
-            self.exit 
+            self.start
         end 
         system "clear"
     end 
