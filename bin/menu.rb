@@ -31,6 +31,7 @@ class Menu
     end 
 
     def booking_process 
+        system "clear"
         puts "Here is a list of all available activities!"
         puts Activity.list_all_activities
 
@@ -41,6 +42,7 @@ class Menu
             @activity = STDIN.gets.chomp
         end
 
+        system "clear"
         puts "Where would you like to go #{@activity}?"
         puts "Press 1 to search for a specific park"
         puts "Press 2 to search by state"
@@ -110,6 +112,7 @@ class Menu
     def search_by_park
         puts 'What park would you like to go to?'
         @user_park = STDIN.gets.chomp
+  
         if Activity.find_if_park_has_your_activity(@activity, @user_park) == true 
             puts "Yes, #{@activity} is available for booking at #{@user_park}!"
             puts "Prior to booking, what else would you like to learn about #{@user_park}?"
