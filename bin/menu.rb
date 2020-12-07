@@ -1,4 +1,3 @@
-require 'pry'
 
 class Menu
     def welcome
@@ -8,6 +7,7 @@ class Menu
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
         @last_name = STDIN.gets.chomp
+        system "clear"
         self.start
     end
 
