@@ -171,6 +171,7 @@ class Menu
     end 
 
     def p_input(park_input)
+        system "clear"
         park = Nationalpark.find_by_name(@user_park)
         case park_input
         when "1"
@@ -193,7 +194,6 @@ class Menu
         when "7" 
             self.start
         end 
-        system "clear"
     end 
 
     def book_now
