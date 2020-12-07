@@ -76,7 +76,7 @@ class Menu
         if user              
             user_acts = Activity.find_all_activities(user.id)
             user_acts.each do |user|
-                puts "#{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
+                puts "##{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
                 puts "Press 2 if you would like to update any of your past bookings"
