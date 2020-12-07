@@ -2,12 +2,20 @@ class Menu
     def welcome
         puts 'Welcome to ActivityRecord!'
         puts "Let's find a location for you to do your favorite outdoor activity!"
-        puts "Please enter your first name"
-        @first_name = STDIN.gets.chomp
-        puts "Please enter your last name"
-        @last_name = STDIN.gets.chomp
-        system "clear"
-        self.start
+        puts "Please enter your username"
+        @username = STDIN.gets.chomp
+        if Tourist.find_by(username: @username)
+            system "clear"
+            self.start
+        else
+            puts "Please enter your first name"
+            @first_name = STDIN.gets.chomp
+            puts "Please enter your last name"
+            @last_name = STDIN.gets.chomp
+            Tourist.create(first_name: @first_name, last_name: @last_name, username: @username)
+            system "clear"
+            self.start
+        end
     end
 
     def start
@@ -71,12 +79,12 @@ class Menu
 
     def activity_list
         system "clear"
-        @user = Tourist.find_by(first_name: @first_name, last_name: @last_name)
-        if @user              
-            @user_acts = Activity.find_all_activities(@user.id)
-            @user_acts.each do |user|
+        @user = Tourist.find_by(username: @username)              
+        @user_acts = Activity.find_all_activities(@user.id)
+        unless @user_acts.empty?
+                @user_acts.each do |user|
                 puts "##{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
-            end
+                end
                 puts "Press 1 if you would like to delete any of your past bookings"
                 puts "Press 2 if you would like to update any of your past bookings"
                 puts "Press any key to return to the main menu"
@@ -199,7 +207,7 @@ class Menu
     def book_now
         puts "Please enter the date you would like to book your activity for: (mm/dd/yyyy)"
         date = STDIN.gets.chomp
-        user = Tourist.find_or_create_a_tourist(@first_name, @last_name).id
+        user = Tourist.find_by(username: @username).id
         park_id = Nationalpark.find_by(name: @user_park).id 
         Activity.create(activity: @activity,nationalpark_id: park_id,tourist_id: user,date: date)
         puts "Thank you for booking your activity with ActivityRecord!"
