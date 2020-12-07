@@ -2,7 +2,7 @@
 class Menu
     def welcome
         puts 'Welcome to ActivityRecord!'
-        puts "Let's find which National Parks you can do your favorite outdoor activities!"
+        puts "Let's find a location for you to do your favorite outdoor activity!"
         puts "Please enter your first name"
         @first_name = STDIN.gets.chomp
         puts "Please enter your last name"
