@@ -72,10 +72,10 @@ class Menu
 
     def activity_list
         system "clear"
-        user = Tourist.find_by(first_name: @first_name, last_name: @last_name)
-        if user              
-            user_acts = Activity.find_all_activities(user.id)
-            user_acts.each do |user|
+        @user = Tourist.find_by(first_name: @first_name, last_name: @last_name)
+        if @user              
+            @user_acts = Activity.find_all_activities(@user.id)
+            @user_acts.each do |user|
                 puts "##{user.id}. #{user.activity} at #{Nationalpark.find_by(id: user.nationalpark_id).name} on #{user.date}"
             end
                 puts "Press 1 if you would like to delete any of your past bookings"
@@ -99,6 +99,11 @@ class Menu
         elsif user_input == "2"
             puts "Enter the number associated with the booking you would like to update"
             id_input = STDIN.gets.chomp
+            valid_id = @user_acts.map {|user| user.id.to_s}
+                until valid_id.include? id_input
+                puts "Sorry #{id_input} is not a valid input. Please enter the number."
+                id_input = STDIN.gets.chomp
+                end 
             puts "Enter the new date you would like to do your activity (mm/dd/yyyy)"
             new_date = STDIN.gets.chomp
             Activity.find(id_input).update(date: new_date)
