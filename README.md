@@ -1,59 +1,68 @@
-# Module One Final Project Guidelines
+# Module One Final Project#
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+# Name
+ActivityRecord
 
-For your final project, we'll be building a Command Line database application.
+# Goal 
+ActivityRecord allows users to search and book activities at various public parks across the US. 
 
-## Project Requirements
+# Description
+Users login and have the option to view and manage their previous bookings or search for new activities. Users can search by park or state to see if that activity is available for booking. Users can broaden the search by viewing a full list of parks and their states with a given activity. A user can further delve into park information before booking an activity.
 
-### Option One - Data Analytics Project
+# Prerequisites
+Before you continue, ensure you have met the following requirements:
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+* Have a basic environment configured 
+* Have a code editor 
 
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
+# How to Install
+* Clone the repository: https://github.com/MitchyG07/activity-record-mod1-project
+  in your terminal
+* In your terminal:
+  * cd into the directory
+  * Type 'bundle install'
+  * Type 'rake db:migrate'
+  * Type 'rake db:seed'
+  * Run the program by typing 'ruby bin/run.rb' in your terminal
+* Now the program has started!
 
-### Option Two - Command Line CRUD App
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have a minimum of three models.
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
-4. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+# How to Use ActivityRecord
+* The program opens with a welcome and prompts the user to enter their first and last name.
+* On the main menu:
+  * Press 1 to explore activities to book
+  * Press 2 to view and manage your past bookings
+  * Press 3 to exit the application
+* To explore/book:
+  * View the entire list of available activities
+  * Input the activity of your choice
+    * Press 1 to search for a specific park
+      * Input the park you'd like to book your activity
+      * If the park has your activity, you can book the activity and/or view information on the park
+    * Press 2 to search by state
+      * Enter the two character state code 
+      * View a list of all parks with your activity available in that state
+      * Input which park you'd like to book your activity
+      * Book the activity and/or view information on the park
+    * Press 3 to view a list of every park and its state with your activity
+      * View a list of all parks and their state with your activity available
+      * Input which park you'd like to book your activity
+      * Book the activity and/or view information on the park
+    * Press 4 to return to the main menu
+    * Press 5 to exit
+  * To book an activity
+    * After a successful search, press 6 to book your activity on the parks menu
+    * Enter the date you'd like to do your activity
+* To view/manage your bookings:
+  * View list of all your previous bookings
+  * Press 1 to delete a booking
+    * Enter the id # of the booking you would like to delete
+  * Press 2 to update a booking
+    * Enter the id # of the booking you would like to update
+    * Enter the new date for your booked activity
+  
+  Created by: Emma Fewer (github: emmafewer) and Mitch Gilbert (github: MitchyG07)
 
-### Brainstorming and Proposing a Project Idea
 
-Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. For example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:
+  
 
-* As a user, I want to be able to enter my name to retrieve my records
-* As a user, I want to enter a location and be given a random nearby restaurant suggestion
-* As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-* As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
-
-## Instructions
-
-1. Fork and clone this repository.
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributor's guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-    * The video should:
-      - Have an overview of your project. (2 minutes max)
-6. Prepare a presentation to follow your video. (3 minutes max)
-    * Your presentation should:
-      - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
-      - Discuss 3 things you learned in the process of working on this project.
-      - Address what, if anything, you would change or add to what you have today.
-      - Present any code you would like to highlight.   
-7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
-
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
