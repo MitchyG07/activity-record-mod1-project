@@ -3,7 +3,7 @@ class Menu
         puts '-----------------------------'
         puts '| Welcome to ActivityRecord!|'.cyan
         puts '-----------------------------'
-        puts "Let's find a location for you to do your favorite outdoor activity!"
+        puts "Book and search for your favorite outdoor activities at National Parks!"
         puts "-------------------------------------------------------------------".cyan
         puts "Please enter your username"
         @username = STDIN.gets.chomp
@@ -149,6 +149,10 @@ class Menu
         puts 'Enter two character state code for your desired location'
         puts '--------------------------------------------------------'.cyan
         user_state = STDIN.gets.chomp
+        until Nationalpark.exists?(states: user_state)
+            puts "Sorry #{user_state} is not a valid input. Please re-enter a two digit code."
+            user_state = STDIN.gets.chomp
+        end 
         state_array = Activity.find_parks_by_state_and_activity(@activity,user_state)
         if state_array.empty?
             puts "We are sorry, #{@activity} is not in #{user_state}!"
@@ -161,7 +165,10 @@ class Menu
             until Nationalpark.exists?(name: @user_park)
                 puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
                 @user_park = STDIN.gets.chomp
-            end           
+            end  
+            system "clear"
+            puts "-------------------------------------------------------------".cyan
+            puts "Prior to booking, what else would you like to learn about #{@user_park}?"         
             self.get_park_info
         end 
     end 
@@ -175,6 +182,9 @@ class Menu
             puts "Sorry #{@user_park} is not a valid park for #{@activity}. Please re-enter."
             @user_park = STDIN.gets.chomp
         end 
+        system "clear"
+        puts "-------------------------------------------------------------".cyan
+        puts "Prior to booking, what else would you like to learn about #{@user_park}?"
         self.get_park_info
     end
 
