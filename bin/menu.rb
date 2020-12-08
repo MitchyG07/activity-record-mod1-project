@@ -232,6 +232,7 @@ class Menu
 
     def exit
         puts 'Thanks for visiting!'
+        puts "ʕ •ᴥ•ʔ".red
         puts "ONLY YOU CAN PREVENT WILDFIRES".red
     end 
 end 
