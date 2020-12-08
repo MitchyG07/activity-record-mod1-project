@@ -64,7 +64,13 @@ Before you continue, ensure you have met the following requirements:
     * Enter the id # of the booking you would like to update
     * Enter the new date for your booked activity
   
-  Created by: Emma Fewer (github: emmafewer) and Mitch Gilbert (github: MitchyG07)
+# Contributors
+Mitch Gilbert - Github: MitchyG07
+Emma Fewer - Github: emmafewer
+
+# Acknowledgements
+The following API was used from the National Park Service:
+https://www.nps.gov/subjects/developer/api-documentation.htm#/
 
 
   
